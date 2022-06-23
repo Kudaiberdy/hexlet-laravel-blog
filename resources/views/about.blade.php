@@ -1,0 +1,16 @@
+<!-- Хранится в resources/views/about.blade.php -->
+
+@extends('layouts.app')
+
+<!-- Секция, содержимое которой обычный текст. -->
+@section('title', 'О блоге')
+
+<!-- Секция, содержащая HTML блок. Имеет открывающую и закрывающую часть. -->
+@section('header')
+
+@endsection
+
+@section('content')
+    <h1>О блоге</h1>
+    <p>Эксперименты с Laravel на Хекслете</p>
+@endsection
