@@ -12,6 +12,7 @@
 <body>
     <div class="container mt-4">
         <a href="{{ route('articles.index') }}">Articles</a>
+        <a href="{{ route('article_categories.index') }}">Categories of articles</a>
         <a href="{{ route('about') }}">About</a>
     </div>
     <div class="container mt-4">

@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->string('name')->unique()->change();//article name
-            $table->integer('likes_count')->nullable();
+        Schema::create('articles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('state');
+            $table->integer('likes_count')->default(0);
+            $table->bigInteger('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('article_categories');
+            $table->text('body');
+            $table->timestamps();
         });
     }
 

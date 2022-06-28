@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{ArticleController, ArticleCategoryController, PageController};
 
 /*
 |--------------------------------------------------------------------------
@@ -15,36 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-}); //OLD REALIZATION
+});
 
-//Route::get('about', function () {
-//    $tags = ['обучение', 'программирование', 'php', 'oop'];
-//    return view('about', ['tags' => $tags]);
-//}); //OLD REALIZATION
-
-//Route::get('/articles', function () {
-//    $articles = App\Models\Article::all();
-//    return view('articles', ['articles' => $articles]);
-//}); //OLD REALIZATION
-
-//Route::get('/article/create', function () {
-//    $articles = App\Models\Article::all();
-//    return  view('articleCreate', ['article' => $articles]);
-//}); //OLD REALIZATION
-
-
-Route::get('/about', [\App\Http\Controllers\PageController::class, 'show'])
+Route::get('/about', [PageController::class, 'show'])
     ->name('about');
 
-Route::get('/articles', [\App\Http\Controllers\ArticleController::class, 'index'])
+Route::get('/articles', [ArticleController::class, 'index'])
     ->name('articles.index');
 
-Route::get('/articles/create', [\App\Http\Controllers\ArticleController::class, 'articleCreate']);
+Route::get('/articles/{id}', [ArticleController::class, 'show'])
+    ->name('articles.show');
 
-//Route::post('/articles', [\App\Http\Controllers\PageController::class, 'articleCreate']);
+Route::get('/article_categories', [ArticleCategoryController::class, 'index'])
+    ->name('article_categories.index');
 
-Route::get('/articles/{articleId}', [\App\Http\Controllers\ArticleController::class, 'show'])
-    ->name('article.show');
-
-
-
+Route::get('/article_categories/{id}', [ArticleCategoryController::class, 'show'])
+    ->name('article_categories.show');

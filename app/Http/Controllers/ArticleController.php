@@ -9,18 +9,13 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::paginate(10);
-        return view('articles.index', compact('articles'));
+        $articles = Article::paginate();
+        return view('article.index', compact('articles'));
     }
 
-    public function show($articleId)
+    public function show($id)
     {
-        $article = Article::findOrFail($articleId);
-        return view('articles.showArticle', compact('article'));
-    }
-
-    public function articleCreate()
-    {
-        return view('articles.articleCreate');
+        $article = Article::findOrFail($id);
+        return view('article.show', compact('article'));
     }
 }
