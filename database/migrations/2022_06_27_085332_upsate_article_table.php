@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');//article name
-            $table->text('body');//article content
-            $table->integer('views_count')->nullable();
-            $table->timestamps();
+        Schema::table('articles', function (Blueprint $table) {
+            $table->string('name')->unique()->change();//article name
+            $table->integer('likes_count')->nullable();
         });
     }
 
