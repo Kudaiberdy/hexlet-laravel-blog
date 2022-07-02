@@ -2,8 +2,17 @@
 
 @section('content')
     <h1>{{$category->name}}</h1>
+    <div>State: {{$category->state}}</div>
     <div>{{$category->description}}</div>
-    @if (!$category->articles->isEmpty())
+
+    <div>
+        <a href="{{route('article_categories.edit', ['id' => $category->id])}}">
+            Edit
+        </a>
+    </div>
+
+    @if ($category->articles->isNotEmpty())
+        <h2>Articles</h2>
         <div>
             <ol>
                 @foreach ($category->articles as $article)
@@ -14,4 +23,5 @@
             </ol>
         </div>
     @endif
+
 @endsection
