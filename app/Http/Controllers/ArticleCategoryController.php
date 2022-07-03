@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\ArticleCategory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -78,5 +79,15 @@ class ArticleCategoryController extends Controller
     {
         $category = ArticleCategory::findOrFail($id);
         return view('article_category.show', compact('category'));
+    }
+
+    public function destroy($id)
+    {
+        $category = ArticleCategory::find($id);
+        if ($category) {
+            $category->delete();
+        }
+        return redirect()->route('article_categories.index')
+            ->with('status', 'The category has been successfully deleted');
     }
 }

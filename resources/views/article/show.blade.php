@@ -19,4 +19,6 @@
         </a>
     </div>
 
+    <a href="{{ route('articles.destroy', $article) }}" data-confirm='Are you sure?' data-method="delete" rel="nofollow">Delete</a>
+
 @endsection

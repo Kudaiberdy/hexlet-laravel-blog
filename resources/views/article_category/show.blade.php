@@ -13,7 +13,9 @@
             Edit
         </a>
     </div>
-
+    <div>
+        <a href="{{ route('article_categories.destroy', $category) }}" data-confirm='Are you sure?' data-method="delete" rel="nofollow">Delete</a>
+    </div>
     @if ($category->articles->isNotEmpty())
         <h2>Articles</h2>
         <div>

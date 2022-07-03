@@ -64,4 +64,7 @@ Route::controller(ArticleCategoryController::class)->group(function () {
 
     Route::get('/article_categories/{id}', 'show')
         ->name('article_categories.show');
+
+    Route::delete('/article_categories/{id}', 'destroy')
+        ->name('article_categories.destroy');
 });
