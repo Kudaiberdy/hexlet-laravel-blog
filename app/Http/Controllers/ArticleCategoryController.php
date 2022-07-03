@@ -18,6 +18,7 @@ class ArticleCategoryController extends Controller
     {
         $category = new ArticleCategory();
         $categoryState = $this->categoryState;
+
         return view('article_category.create', compact('category', 'categoryState'));
     }
 
@@ -36,13 +37,15 @@ class ArticleCategoryController extends Controller
         $category->save();
 
         return redirect()
-            ->route('article_categories.index');
+            ->route('article_categories.index')
+            ->with('status', 'The category has been successfully created');
     }
 
     public function edit($id)
     {
         $category = ArticleCategory::findOrFail($id);
         $categoryState = $this->categoryState;
+
         return view('article_category.edit', compact('category', 'categoryState'));
     }
 
@@ -50,18 +53,19 @@ class ArticleCategoryController extends Controller
     {
         $category = ArticleCategory::findOrFail($id);
         $data = $this->validate($request, [
-            'name' => 'required|unique:articles,name,' . $category->id,
+            'name' => 'required|unique:article_categories,name,' . $category->id,
             'description' => 'required|min:10',
             'state' => [
                 Rule::in(array_keys($this->categoryState)),
             ]
         ]);
+
         $category->fill($data);
         $category->save();
-        $request->session()->flash('status', 'Task was successful!');
+
         return redirect()
             ->route('article_categories.show', $id)
-            ->with('status', 'the category has been successfully updated');
+            ->with('status', 'The category has been successfully updated');
     }
 
     public function index()

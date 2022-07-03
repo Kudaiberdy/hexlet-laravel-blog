@@ -27,7 +27,7 @@ class ArticleController extends Controller
         $article = new Article();
         $articleCategories = $this->getArticleCategory();
         $articleState = $this->articleState;
-        dump($articleCategories);
+
         return view('article.create', compact('article', 'articleCategories', 'articleState'));
     }
 
@@ -47,9 +47,41 @@ class ArticleController extends Controller
         $article = new Article();
         $article->fill($data);
         $article->save();
-        $request->session()->now('status', 'Task was successful!');
+
         return redirect()
-            ->route('articles.index');
+            ->route('articles.index')
+            ->with('status', 'The article has been successfully created');
+    }
+
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        $articleState = $this->articleState;
+        $articleCategories = $this->getArticleCategory();
+
+        return view('article.edit', compact('article', 'articleState', 'articleCategories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $article = Article::findOrFail($id);
+        $data = $this->validate($request, [
+            'name' => 'required|max:200|unique:articles,name' . $article->id,
+            'body' => 'required|min:10',
+            'category_id' => [
+                Rule::in(array_keys($this->getArticleCategory())),
+            ],
+            'state' => [
+                Rule::in(array_keys($this->articleState)),
+            ]
+        ]);
+
+        $article->fill($data);
+        $article->save();
+
+        return redirect()
+            ->route('articles.show', $id)
+            ->with('status', 'The article has been successfully updated');
     }
 
     public function index(Request $request)

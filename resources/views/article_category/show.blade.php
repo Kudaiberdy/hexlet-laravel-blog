@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @include('flash')
+
     <h1>{{$category->name}}</h1>
     <div>State: {{$category->state}}</div>
     <div>{{$category->description}}</div>

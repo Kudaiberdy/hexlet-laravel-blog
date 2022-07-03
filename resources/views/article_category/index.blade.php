@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('flash')
+
     <small>
         <a href="{{ route('article_categories.create') }}">
             Create category
